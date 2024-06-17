@@ -39,26 +39,45 @@ function checkForSpam(message) {
 
 console.log(checkForSpam("Get best sale offers now!"));
 console.log(checkForSpam("Latest technology news"));
-let input;
-const numbers = [];
-let total = 0;
 
-while (true) {
-  input = prompt("Введіть число");
-  if (input === null) {
-    break;
+function getNumbers() {
+  const numbers = [];
+  while (true) {
+    const input = prompt("Введіть число");
+    if (input === null) {
+      break;
+    }
+    const number = processInput(input);
+    if (number !== null) {
+      numbers.push(number);
+    }
   }
+  return numbers;
+}
+
+function processInput(input) {
   const number = Number(input);
   if (Number.isNaN(number)) {
     alert("Було введено не число, попробуйте ще раз");
-  } else {
-    numbers.push(number);
+    return null;
   }
+  return number;
 }
 
-if (numbers.length > 0) {
+function calculateTotal(numbers) {
+  let total = 0;
   for (const number of numbers) {
     total += number;
   }
-  console.log(`Загальна сума чисел дорівнює ${total}`);
+  return total;
 }
+
+function main() {
+  const numbers = getNumbers();
+  if (numbers.length > 0) {
+    const total = calculateTotal(numbers);
+    console.log(`Загальна сума чисел дорівнює ${total}`);
+  }
+}
+
+main();
